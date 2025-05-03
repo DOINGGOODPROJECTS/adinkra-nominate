@@ -29,6 +29,25 @@ const auth = new JWT({
 
 const sheets = google.sheets({ version: "v4", auth })
 
+export async function countFilledRowsInColumnA(): Promise<number> {
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: SHEET_ID,
+      range: `${SHEET_NAME}!A:A`, // Colonne A entière
+    })
+
+    const rows = response.data.values || []
+    const filledRows = rows.filter(row => row[0] !== "").length
+
+    console.log(`✅ Nombre de lignes remplies : ${filledRows}`)
+    return (filledRows > 0 ? filledRows - 1 : 0)+1
+  } catch (err) {
+    console.error("❌ Erreur lors du comptage des lignes :", err)
+    throw err
+  }
+}
+
+
 // Fonction pour ajouter les données
 export async function addNominationToGoogleSheet(data: NominationData) {
   const rows = data.nominees.map(nominee => [
@@ -43,12 +62,13 @@ export async function addNominationToGoogleSheet(data: NominationData) {
     nominee.whyStrong,
   ])
 
+  const count = await countFilledRowsInColumnA();
+
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID,
-      range: SHEET_NAME, // Ne pas spécifier !A1 pour éviter l'erreur
-      valueInputOption: "USER_ENTERED",
-      insertDataOption: "INSERT_ROWS",
+      range: `${SHEET_NAME}!A${count}`, // ✅
+      valueInputOption: "RAW",
       requestBody: {
         values: rows,
       },
