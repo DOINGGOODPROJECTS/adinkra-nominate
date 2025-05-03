@@ -40,7 +40,7 @@ export async function countFilledRowsInColumnA(): Promise<number> {
     const filledRows = rows.filter(row => row[0] !== "").length
 
     console.log(`✅ Nombre de lignes remplies : ${filledRows}`)
-    return (filledRows > 0 ? filledRows - 1 : 0)+1
+    return (filledRows > 0 ? filledRows - 2 : 2)+1
   } catch (err) {
     console.error("❌ Erreur lors du comptage des lignes :", err)
     throw err
