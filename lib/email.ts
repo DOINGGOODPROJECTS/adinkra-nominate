@@ -66,8 +66,8 @@ The Adinkra Fellowship Team
       padding: 20px;
     }
     .header {
-      background-color: #D4A017;
-      color: white;
+      background-color: #e1ebfa;
+      color: #000;
       padding: 20px;
       text-align: center;
     }
