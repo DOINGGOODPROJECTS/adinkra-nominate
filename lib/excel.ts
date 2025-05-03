@@ -16,11 +16,11 @@ export type NominationData = {
   submittedAt: Date
 }
 
-// ID de ta Google Sheet (extrait de l’URL)
+// ID de ta Google Sheet
 const SHEET_ID = "12mEVIV17730qIYOQkJXIn2SF3JGYCk2MXF14YgZwmcM"
-const SHEET_NAME = "Nominations" // Doit exister dans ton Google Sheet
+const SHEET_NAME = "Nominations" // Assure-toi que ce nom existe dans ton document
 
-// Création du client Google Auth avec un compte de service
+// Authentification avec ton compte de service
 const auth = new JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
   key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
@@ -29,7 +29,7 @@ const auth = new JWT({
 
 const sheets = google.sheets({ version: "v4", auth })
 
-// Fonction pour ajouter une nomination à Google Sheets
+// Fonction pour ajouter les données
 export async function addNominationToGoogleSheet(data: NominationData) {
   const rows = data.nominees.map(nominee => [
     data.submittedAt.toISOString(),
@@ -46,8 +46,9 @@ export async function addNominationToGoogleSheet(data: NominationData) {
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID,
-      range: `${SHEET_NAME}!A1`,
-      valueInputOption: "RAW",
+      range: SHEET_NAME, // Ne pas spécifier !A1 pour éviter l'erreur
+      valueInputOption: "USER_ENTERED",
+      insertDataOption: "INSERT_ROWS",
       requestBody: {
         values: rows,
       },
