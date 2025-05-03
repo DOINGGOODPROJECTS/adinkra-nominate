@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { addNominationToExcel } from "@/lib/excel"
+import { addNominationToGoogleSheet } from "@/lib/excel"
 import { sendEmail, generateNominationEmail } from "@/lib/email"
 
 export async function POST(request: Request) {
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     }
 
     // Ajouter les données au fichier Excel
-    await addNominationToExcel(nominationData)
+    await addNominationToGoogleSheet(nominationData)
 
     // Envoyer un email à chaque nominé
     for (const nominee of data.nominees) {
