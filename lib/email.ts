@@ -3,7 +3,8 @@ import nodemailer from "nodemailer"
 // Type pour les données d'email
 export type EmailData = {
   to: string
-  subject: string
+  subject: string,
+  cc: string,
   text: string
   html: string
 }
@@ -25,6 +26,7 @@ export async function sendEmail(data: EmailData): Promise<void> {
   await transporter.sendMail({
     from: `"Adinkra Fellowship" <${process.env.EMAIL_USER}>`,
     to: data.to,
+    cc: data.cc,
     subject: data.subject,
     text: data.text,
     html: data.html,

@@ -22,6 +22,7 @@ export async function POST(request: Request) {
 
       await sendEmail({
         to: nominee.email,
+        cc: data.nominatorEmail,
         subject: "You've Been Nominated for the Adinkra Fellowship!",
         text,
         html,
