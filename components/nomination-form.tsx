@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox" // Ajout du composant Checkbox
 import { Card, CardContent } from "@/components/ui/card"
 import { Loader2, Plus, Trash2 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
@@ -52,6 +53,7 @@ const formSchema = z.object({
   nominees: z.array(nomineeSchema).min(1, {
     message: "Veuillez ajouter au moins un candidat.",
   }),
+  joinRecommenders: z.boolean().optional(), // Nouveau champ pour la case à cocher
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -76,6 +78,7 @@ export default function NominationForm() {
           whyStrong: "",
         },
       ],
+      joinRecommenders: false, // Valeur par défaut pour la case à cocher
     },
   })
 
@@ -101,7 +104,7 @@ export default function NominationForm() {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.message || "Une erreur est survenue lors de la soumission")
+        throw new Error(result Wmessage || "Une erreur est survenue lors de la soumission")
       }
 
       toast({
@@ -123,6 +126,7 @@ export default function NominationForm() {
             whyStrong: "",
           },
         ],
+        joinRecommenders: false, // Réinitialiser la case à cocher
       })
     } catch (error) {
       console.error("Erreur lors de la soumission:", error)
@@ -149,7 +153,7 @@ export default function NominationForm() {
             name="nominatorFullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name / Nom et Prénoms / Nome Completo <span className="text-red-0"><span className="text-red-0">*</span></span></FormLabel>
+                <FormLabel>Full Name / Nom et Prénoms / Nome Completo <span className="text-red-0">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="John Doe" {...field} />
                 </FormControl>
@@ -276,7 +280,7 @@ export default function NominationForm() {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel>
-                          Age (Must be 40 or under as of application deadline) / Âge (Doit être 40 ans ou moins à la
+                          Age (Must be 40 or under as of application deadline) / Âge (Doit être agé(e) de 40 ans ou moins à la
                           date limite de candidature) / Idade (Deve ter 40 anos ou menos até o prazo de inscrição) <span className="text-red-0">*</span>
                         </FormLabel>
                         <FormControl>
@@ -349,6 +353,25 @@ export default function NominationForm() {
             Add Another Nominee / Ajouter un Candidat / Adicionar Nomeado
           </Button>
         </div>
+
+        {/* Nouvelle case à cocher */}
+        <FormField
+          control={form.control}
+          name="joinRecommenders"
+          render={({ field }) => (
+            <FormItem className="flex items-center space-x-2">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel className="font-normal">
+                Please tick here if you would like to join our circle of recommenders and help nominate outstanding individuals for future editions of the Adinkra Fellowship / Veuillez cocher ici si vous souhaitez rejoindre notre cercle de recommandataires et contribuer à la nomination de personnes exceptionnelles pour les prochaines éditions du Adinkra Fellowship / Por favor, marque aqui se desejar juntar-se ao nosso círculo de recomendadores e ajudar a nomear pessoas excecionais para as futuras edições do Adinkra Fellowship
+              </FormLabel>
+            </FormItem>
+          )}
+        />
 
         <Button type="submit" className="w-full bg-black-0 hover:bg-black-0" disabled={isSubmitting}>
           {isSubmitting ? (
