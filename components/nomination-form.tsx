@@ -104,7 +104,7 @@ export default function NominationForm() {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result Wmessage || "Une erreur est survenue lors de la soumission")
+        throw new Error(result.message || "Une erreur est survenue lors de la soumission")
       }
 
       toast({
