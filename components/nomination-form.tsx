@@ -367,7 +367,7 @@ export default function NominationForm() {
                 />
               </FormControl>
               <FormLabel>
-                Please tick here if you would like to join our circle of recommenders and help nominate outstanding individuals for future editions of the Adinkra. <br className="mt-2" /> Veuillez cocher ici si vous souhaitez rejoindre notre cercle de recommandataires et contribuer à la nomination de personnes exceptionnelles pour les prochaines éditions du Adinkra Fellowship. <br className="mt-2" /> Por favor, marque aqui se desejar juntar-se ao nosso círculo de recomendadores e ajudar a nomear pessoas excecionais para as futuras edições do Adinkra Fellowship.
+                Please tick here if you would like to join our circle of recommenders and help nominate outstanding individuals for future editions of the Adinkra. <br /><br /> Veuillez cocher ici si vous souhaitez rejoindre notre cercle de recommandataires et contribuer à la nomination de personnes exceptionnelles pour les prochaines éditions du Adinkra Fellowship. <br /><br /> Por favor, marque aqui se desejar juntar-se ao nosso círculo de recomendadores e ajudar a nomear pessoas excecionais para as futuras edições do Adinkra Fellowship.
               </FormLabel>
             </FormItem>
           )}
