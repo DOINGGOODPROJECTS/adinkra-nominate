@@ -366,7 +366,7 @@ export default function NominationForm() {
                   onCheckedChange={field.onChange}
                 />
               </FormControl>
-              <FormLabel className="font-normal">
+              <FormLabel>
                 Please tick here if you would like to join our circle of recommenders and help nominate outstanding individuals for future editions of the Adinkra Fellowship <br /> Veuillez cocher ici si vous souhaitez rejoindre notre cercle de recommandataires et contribuer à la nomination de personnes exceptionnelles pour les prochaines éditions du Adinkra Fellowship <br /> Por favor, marque aqui se desejar juntar-se ao nosso círculo de recomendadores e ajudar a nomear pessoas excecionais para as futuras edições do Adinkra Fellowship
               </FormLabel>
             </FormItem>
